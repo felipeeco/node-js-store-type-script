@@ -11,7 +11,7 @@ function generateProduct(): Product {
     price: faker.commerce.price(),
     description: faker.commerce.productDescription(),
     category: faker.commerce.department(),
-    image: faker.image.url(),
+    image: faker.image.url()
   };
 }
 
@@ -33,13 +33,49 @@ router.get('/filter', (req: Request, res: Response) => {
 //est ruta es dinamica y va despues con el fin de evitar que se pise la url
 router.get('/:id', (req: Request, res: Response) => {
   const { id } = req.params;
-  res.json([
-    {
-      id,
-      name: 'Product 1',
-      price: 2000,
-    },
-  ]);
+  if (id === '999') {
+    res.status(404).json([
+      {
+        message: 'Not found it'
+      }
+    ]);
+  } else {
+    res.status(200).json([
+      {
+        id,
+        name: 'Product 1',
+        price: 2000
+      }
+    ]);
+  }
+});
+
+router.post('/create-product', (req, res) => {
+  const body = req.body;
+  res.status(201).json({
+    message: 'created',
+    data: body
+  });
+});
+
+router.put('/change-product/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'changed',
+    data: body,
+    id
+  });
+});
+
+router.put('/delete-product/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'deleted',
+    data: body,
+    id
+  });
 });
 
 export { router as productsRouter };
