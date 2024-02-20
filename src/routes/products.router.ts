@@ -1,27 +1,12 @@
 import { Request, Response, Router } from 'express';
-import { faker } from '@faker-js/faker';
-import { Product } from '../models/product.interface';
+import { Product } from '@models/product.interface';
+import { ProdutcsServices } from '../services/products.services';
 
 const router = Router();
-
-function generateProduct(): Product {
-  return {
-    id: faker.number.int(),
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    description: faker.commerce.productDescription(),
-    category: faker.commerce.department(),
-    image: faker.image.url()
-  };
-}
+const service = new ProdutcsServices();
 
 router.get('/', (req: Request, res: Response) => {
-  const { size } = req.query;
-  const limit = size || 10;
-  const products: Product[] = [];
-  while (products.length < Number(limit)) {
-    products.push(generateProduct());
-  }
+  const products: Product[] = service.find();
   res.json(products);
 });
 
@@ -33,49 +18,69 @@ router.get('/filter', (req: Request, res: Response) => {
 //est ruta es dinamica y va despues con el fin de evitar que se pise la url
 router.get('/:id', (req: Request, res: Response) => {
   const { id } = req.params;
-  if (id === '999') {
+  const products = service.findOne(id);
+  if (products) {
+    res.status(200).json(products);
+  } else {
     res.status(404).json([
       {
         message: 'Not found it'
-      }
-    ]);
-  } else {
-    res.status(200).json([
-      {
-        id,
-        name: 'Product 1',
-        price: 2000
       }
     ]);
   }
 });
 
 router.post('/create-product', (req, res) => {
-  const body = req.body;
-  res.status(201).json({
-    message: 'created',
-    data: body
-  });
+  try {
+    const product: Product = {
+      id: service.generateId(),
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      category: req.body.category,
+      image: req.body.image
+    };
+
+    service.create(product);
+    res.status(201).json({
+      message: 'created'
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: 'bad request'
+    });
+  }
 });
 
 router.put('/change-product/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.json({
-    message: 'changed',
-    data: body,
-    id
-  });
+
+  try {
+    service.update(Number(id), body);
+    res.status(200).json({
+      message: 'updated'
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: 'bad request'
+    });
+  }
 });
 
 router.put('/delete-product/:id', (req, res) => {
   const { id } = req.params;
-  const body = req.body;
-  res.json({
-    message: 'deleted',
-    data: body,
-    id
-  });
+
+  try {
+    service.delete(Number(id));
+    res.json({
+      message: 'deleted'
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: 'bad request'
+    });
+  }
 });
 
 export { router as productsRouter };
