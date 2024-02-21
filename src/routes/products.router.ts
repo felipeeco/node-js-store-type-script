@@ -5,8 +5,8 @@ import { ProdutcsServices } from '../services/products.services';
 const router = Router();
 const service = new ProdutcsServices();
 
-router.get('/', (req: Request, res: Response) => {
-  const products: Product[] = service.find();
+router.get('/', async (req: Request, res: Response) => {
+  const products: Product[] = await service.find();
   res.json(products);
 });
 
@@ -16,9 +16,9 @@ router.get('/filter', (req: Request, res: Response) => {
 });
 
 //est ruta es dinamica y va despues con el fin de evitar que se pise la url
-router.get('/:id', (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
-  const products = service.findOne(id);
+  const products = await service.findOne(id);
   if (products) {
     res.status(200).json(products);
   } else {

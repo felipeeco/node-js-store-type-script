@@ -32,26 +32,30 @@ export class ProdutcsServices {
     };
   }
 
-  create(newProduct: Product) {
+  async create(newProduct: Product) {
     this.products.push(newProduct);
   }
 
-  delete(id: number) {
+  async delete(id: number) {
     const index = this.products.findIndex((product) => product.id === id);
 
     if (index === -1) throw new Error('Product was not found');
     this.products.splice(index, 1);
   }
 
-  find() {
-    return this.products;
+  async find(): Promise<Product[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 2000);
+    });
   }
 
-  findOne(id: string | number) {
+  async findOne(id: string | number) {
     return this.products.find((product) => product.id === Number(id));
   }
 
-  update(id: number, newProduct: Product) {
+  async update(id: number, newProduct: Product) {
     const index = this.products.findIndex((product) => product.id === id);
 
     if (index === -1) throw new Error('Product was not found');
