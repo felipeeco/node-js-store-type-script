@@ -51,8 +51,9 @@ export class ProdutcsServices {
     });
   }
 
-  async findOne(id: string | number) {
-    return this.products.find((product) => product.id === Number(id));
+  async findOne(id: string | number): Promise<Product | null> {
+    // return this.products.find((product) => product.id === Number(id));
+    throw new Error('fail');
   }
 
   async update(id: number, newProduct: Product) {

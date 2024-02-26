@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router, NextFunction } from 'express';
 import { Product } from '@models/product.interface';
 import { ProdutcsServices } from '../services/products.services';
 
@@ -16,17 +16,22 @@ router.get('/filter', (req: Request, res: Response) => {
 });
 
 //est ruta es dinamica y va despues con el fin de evitar que se pise la url
-router.get('/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const products = await service.findOne(id);
-  if (products) {
-    res.status(200).json(products);
-  } else {
-    res.status(404).json([
-      {
-        message: 'Not found it'
-      }
-    ]);
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const products = await service.findOne(id);
+    if (products) {
+      res.status(200).json(products);
+    } else {
+      res.status(404).json([
+        {
+          message: 'Not found it'
+        }
+      ]);
+    }
+  } catch (error) {
+    console.log('pasa por el catch');
+    next(error);
   }
 });
 
