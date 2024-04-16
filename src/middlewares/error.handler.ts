@@ -18,6 +18,7 @@ export function errorHandler(
 ) {
   res.status(500).json({
     message: error.message,
-    stack: error.stack
+    stack: error.stack,
+    messageTwo: 'perro'
   });
 }
