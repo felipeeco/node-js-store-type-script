@@ -1,17 +1,17 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+      "project": "./tsconfig.json", // Specify your tsconfig.json path
+      "ecmaVersion": 2022,  // Or your desired ECMAScript version
+      "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:prettier/recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended" // Make sure this is last
   ],
   "rules": {
-    "prettier/prettier": "error"
+      // Your custom ESLint rules here
   }
 }
