@@ -12,6 +12,6 @@
       "plugin:prettier/recommended" // Make sure this is last
   ],
   "rules": {
-      // Your custom ESLint rules here
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

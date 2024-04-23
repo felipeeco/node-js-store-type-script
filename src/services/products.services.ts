@@ -1,5 +1,6 @@
 import { Product } from '../models/product.interface';
 import { faker } from '@faker-js/faker';
+import * as boom from '@hapi/boom';
 
 export class ProdutcsServices {
   //propierties
@@ -36,11 +37,17 @@ export class ProdutcsServices {
     this.products.push(newProduct);
   }
 
-  async delete(id: number) {
-    const index = this.products.findIndex((product) => product.id === id);
+  async delete(id: number): Promise<void> {
+    const index = await this.products.findIndex((product) => product.id === id);
 
-    if (index === -1) throw new Error('Product was not found');
-    this.products.splice(index, 1);
+    return new Promise<void>((resolve, reject) => {
+      if (index === -1) {
+        reject(boom.notFound());
+      } else {
+        this.products.splice(index, 1);
+        resolve();
+      }
+    });
   }
 
   async find(): Promise<Product[]> {
@@ -55,14 +62,20 @@ export class ProdutcsServices {
     return this.products.find((product) => product.id === Number(id));
   }
 
-  async update(id: number, newProduct: Product) {
-    const index = this.products.findIndex((product) => product.id === id);
+  async update(id: number, newProduct: Product): Promise<void> {
+    const index = await this.products.findIndex((product) => product.id === id);
 
-    if (index === -1) throw new Error('Product was not found');
-    const product = this.products[index];
-    this.products[index] = {
-      ...product,
-      ...newProduct
-    };
+    return new Promise<void>((resolve, reject) => {
+      if (index === -1) {
+        reject(boom.notFound());
+      } else {
+        const product = this.products[index];
+        this.products[index] = {
+          ...product,
+          ...newProduct
+        };
+        resolve();
+      }
+    });
   }
 }

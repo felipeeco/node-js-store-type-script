@@ -57,33 +57,33 @@ router.post('/create-product', (req, res) => {
   }
 });
 
-router.put('/change-product/:id', (req, res) => {
+router.put('/change-product/:id', async (req, res) => {
   const { id } = req.params;
   const body = req.body;
 
   try {
-    service.update(Number(id), body);
+    await service.update(Number(id), body);
     res.status(200).json({
       message: 'updated'
     });
-  } catch (error) {
-    res.status(400).json({
-      message: 'bad request'
+  } catch (error: any) {
+    res.status(error.output.statusCode).json({
+      message: error.message
     });
   }
 });
 
-router.put('/delete-product/:id', (req, res) => {
+router.put('/delete-product/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    service.delete(Number(id));
-    res.json({
+    await service.delete(Number(id));
+    res.status(200).json({
       message: 'deleted'
     });
-  } catch (error) {
-    res.status(400).json({
-      message: 'bad request'
+  } catch (error: any) {
+    res.status(error.output.statusCode).json({
+      message: error.message
     });
   }
 });
