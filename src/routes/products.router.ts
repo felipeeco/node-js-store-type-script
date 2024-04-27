@@ -1,9 +1,9 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import { Product } from '@models/product.interface';
-import { ProdutcsServices } from '@services/product.services';
+import { ProductsServices } from '@services/products.services';
 
 const router = Router();
-const service = new ProdutcsServices();
+const service = new ProductsServices();
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {

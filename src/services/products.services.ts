@@ -6,7 +6,7 @@ import {
   UpdateProductSchema
 } from '@schemas/product.schema';
 
-export class ProdutcsServices {
+export class ProductsServices {
   //propierties
   private products: Product[] = [];
 
