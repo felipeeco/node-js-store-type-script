@@ -1,6 +1,6 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import { Product } from '@models/product.interface';
-import { ProdutcsServices } from '../services/products.services';
+import { ProdutcsServices } from '@services/product.services';
 
 const router = Router();
 const service = new ProdutcsServices();
@@ -62,7 +62,7 @@ router.post(
 );
 
 router.put(
-  '/change-product/:id',
+  '/update-product/:id',
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const body = req.body;

@@ -1,6 +1,10 @@
 import { Product } from '../models/product.interface';
 import { faker } from '@faker-js/faker';
 import * as boom from '@hapi/boom';
+import {
+  CreateProductSchema,
+  UpdateProductSchema
+} from '@schemas/product.schema';
 
 export class ProdutcsServices {
   //propierties
@@ -26,15 +30,24 @@ export class ProdutcsServices {
     return {
       id: this.generateId(),
       name: faker.commerce.productName(),
-      price: faker.commerce.price(),
+      price: +faker.commerce.price(),
       description: faker.commerce.productDescription(),
       category: faker.commerce.department(),
       image: faker.image.url()
     };
   }
 
-  async create(newProduct: Product) {
-    this.products.push(newProduct);
+  async create(newProduct: Product): Promise<void> {
+    const { error } = CreateProductSchema.validate(newProduct);
+
+    return new Promise<void>((resolve, reject) => {
+      if (error) {
+        reject(boom.badRequest());
+      } else {
+        this.products.push(newProduct);
+        resolve();
+      }
+    });
   }
 
   async delete(id: number): Promise<void> {
@@ -64,18 +77,23 @@ export class ProdutcsServices {
 
   async update(id: number, newProduct: Product): Promise<void> {
     const index = await this.products.findIndex((product) => product.id === id);
+    const { error } = UpdateProductSchema.validate(newProduct);
 
     return new Promise<void>((resolve, reject) => {
       if (index === -1) {
         reject(boom.notFound());
-      } else {
-        const product = this.products[index];
-        this.products[index] = {
-          ...product,
-          ...newProduct
-        };
-        resolve();
       }
+
+      if (error) {
+        reject(boom.badRequest());
+      }
+
+      const product = this.products[index];
+      this.products[index] = {
+        ...product,
+        ...newProduct
+      };
+      resolve();
     });
   }
 }
