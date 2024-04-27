@@ -1,10 +1,6 @@
 import { Product } from '../models/product.interface';
 import { faker } from '@faker-js/faker';
 import * as boom from '@hapi/boom';
-import {
-  CreateProductSchema,
-  UpdateProductSchema
-} from '@schemas/product.schema';
 
 export class ProductsServices {
   //propierties
@@ -38,15 +34,9 @@ export class ProductsServices {
   }
 
   async create(newProduct: Product): Promise<void> {
-    const { error } = CreateProductSchema.validate(newProduct);
-
-    return new Promise<void>((resolve, reject) => {
-      if (error) {
-        reject(boom.badRequest());
-      } else {
-        this.products.push(newProduct);
-        resolve();
-      }
+    return new Promise<void>((resolve) => {
+      this.products.push(newProduct);
+      resolve();
     });
   }
 
@@ -77,15 +67,10 @@ export class ProductsServices {
 
   async update(id: number, newProduct: Product): Promise<void> {
     const index = await this.products.findIndex((product) => product.id === id);
-    const { error } = UpdateProductSchema.validate(newProduct);
 
     return new Promise<void>((resolve, reject) => {
       if (index === -1) {
         reject(boom.notFound());
-      }
-
-      if (error) {
-        reject(boom.badRequest());
       }
 
       const product = this.products[index];
