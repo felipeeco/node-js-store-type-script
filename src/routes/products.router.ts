@@ -23,7 +23,7 @@ router.get('/filter', (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const products = await service.findOne(id);
+    const products = await service.findOne(+id);
     if (products) {
       res.status(200).json(products);
     } else {
@@ -40,7 +40,7 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post(
   '/create-product',
-  (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const product: Product = {
         id: service.generateId(),
@@ -51,11 +51,11 @@ router.post(
         image: req.body.image
       };
 
-      service.create(product);
+      await service.create(product);
       res.status(201).json({
         message: 'created'
       });
-    } catch (error) {
+    } catch (error: any) {
       next(error);
     }
   }

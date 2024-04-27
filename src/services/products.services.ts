@@ -37,7 +37,7 @@ export class ProductsServices {
     };
   }
 
-  async create(newProduct: Product): Promise<void> {
+  create(newProduct: Product): Promise<void> {
     const { error } = CreateProductSchema.validate(newProduct);
 
     return new Promise<void>((resolve, reject) => {
@@ -50,8 +50,8 @@ export class ProductsServices {
     });
   }
 
-  async delete(id: number): Promise<void> {
-    const index = await this.products.findIndex((product) => product.id === id);
+  delete(id: number): Promise<void> {
+    const index = this.products.findIndex((product) => product.id === id);
 
     return new Promise<void>((resolve, reject) => {
       if (index === -1) {
@@ -71,12 +71,12 @@ export class ProductsServices {
     });
   }
 
-  async findOne(id: string | number): Promise<Product | undefined> {
+  findOne(id: number): Product | undefined {
     return this.products.find((product) => product.id === Number(id));
   }
 
-  async update(id: number, newProduct: Product): Promise<void> {
-    const index = await this.products.findIndex((product) => product.id === id);
+  update(id: number, newProduct: Product): Promise<void> {
+    const index = this.products.findIndex((product) => product.id === id);
     const { error } = UpdateProductSchema.validate(newProduct);
 
     return new Promise<void>((resolve, reject) => {
