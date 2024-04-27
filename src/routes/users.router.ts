@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { faker } from '@faker-js/faker';
-import { User } from '../models/user.interface';
+import { User } from '@models/user.interface';
 
 const router = Router();
 
