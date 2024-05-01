@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Demo</title>
+</head>
+<body>
+    <h1>Datos de la API</h1>
+</body>
+<script>
+  fetch('http://localhost:3000/api/v2/products').then(res => res.json()).then(res => console.log(res));
+</script>
+</html>

@@ -38,11 +38,13 @@ export class ProductsServices {
   }
 
   create(newProduct: Product): Promise<void> {
-    const { error } = CreateProductSchema.validate(newProduct);
+    const { error } = CreateProductSchema.validate(newProduct, {
+      abortEarly: false
+    });
 
     return new Promise<void>((resolve, reject) => {
       if (error) {
-        reject(boom.badRequest());
+        reject(boom.badRequest(error));
       } else {
         this.products.push(newProduct);
         resolve();
@@ -65,9 +67,7 @@ export class ProductsServices {
 
   async find(): Promise<Product[]> {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.products);
-      }, 2000);
+      resolve(this.products);
     });
   }
 
@@ -77,7 +77,9 @@ export class ProductsServices {
 
   update(id: number, newProduct: Product): Promise<void> {
     const index = this.products.findIndex((product) => product.id === id);
-    const { error } = UpdateProductSchema.validate(newProduct);
+    const { error } = UpdateProductSchema.validate(newProduct, {
+      abortEarly: false
+    });
 
     return new Promise<void>((resolve, reject) => {
       if (index === -1) reject(boom.notFound());
