@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register api/index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc && node -e \"require('tsconfig-paths').register();\"",
     "serve": "node dist/index.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write 'api/**/*.{ts,json}'",
-    "debugging": "node --inspect=0.0.0.0:9229 -r ts-node/register -r tsconfig-paths/register api/index.ts"
+    "format": "prettier --write './**/*.{ts,json}'",
+    "debugging": "node --inspect=0.0.0.0:9229 -r ts-node/register -r tsconfig-paths/register src/index.ts"
   },
   "author": "",
   "license": "ISC",
