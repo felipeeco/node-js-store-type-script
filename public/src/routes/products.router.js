@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productsRouter = void 0;
 const express_1 = require("express");
-const products_services_1 = require("../../services/products.services");
+const products_services_1 = require("../services/products.services");
 const router = (0, express_1.Router)();
 exports.productsRouter = router;
 const service = new products_services_1.ProductsServices();

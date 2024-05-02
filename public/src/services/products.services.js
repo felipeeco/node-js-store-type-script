@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsServices = void 0;
 const boom = __importStar(require("@hapi/boom"));
 const faker_1 = require("@faker-js/faker");
-const product_schema_1 = require("../../schemas/product.schema");
+const product_schema_1 = require("../schemas/product.schema");
 class ProductsServices {
     constructor() {
         //propierties
