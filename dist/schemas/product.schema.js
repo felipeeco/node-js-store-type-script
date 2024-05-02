@@ -35,7 +35,7 @@ exports.CreateProductSchema = Joi.object({
     image: Joi.string().uri()
 });
 exports.UpdateProductSchema = Joi.object({
-    id: Joi.number().integer().positive().required(),
+    id: Joi.number().integer().positive(),
     name: Joi.string().min(3).max(50),
     price: Joi.number().positive().min(1),
     description: Joi.string().max(255),

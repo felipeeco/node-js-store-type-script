@@ -56,10 +56,12 @@ class ProductsServices {
         };
     }
     create(newProduct) {
-        const { error } = product_schema_1.CreateProductSchema.validate(newProduct);
+        const { error } = product_schema_1.CreateProductSchema.validate(newProduct, {
+            abortEarly: false
+        });
         return new Promise((resolve, reject) => {
             if (error) {
-                reject(boom.badRequest());
+                reject(boom.badRequest(error));
             }
             else {
                 this.products.push(newProduct);
@@ -81,9 +83,7 @@ class ProductsServices {
     }
     async find() {
         return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(this.products);
-            }, 2000);
+            resolve(this.products);
         });
     }
     findOne(id) {
@@ -91,7 +91,9 @@ class ProductsServices {
     }
     update(id, newProduct) {
         const index = this.products.findIndex((product) => product.id === id);
-        const { error } = product_schema_1.UpdateProductSchema.validate(newProduct);
+        const { error } = product_schema_1.UpdateProductSchema.validate(newProduct, {
+            abortEarly: false
+        });
         return new Promise((resolve, reject) => {
             if (index === -1)
                 reject(boom.notFound());
