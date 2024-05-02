@@ -1,21 +1,13 @@
 import express, { Request, Response } from 'express';
 import { routerApiV2 } from './routes';
 import cors from 'cors';
-import { whiteList } from './whitelist';
 
 // start express
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-
-const options = {
-  origin: (origin: any, callback: any) => {
-    if (whiteList.includes(origin)) callback(null, true);
-    else callback(new Error('Access forbidden'));
-  }
-};
-app.use(cors(options));
+app.use(cors());
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
