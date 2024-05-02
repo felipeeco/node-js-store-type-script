@@ -5,7 +5,7 @@ const express_1 = require("express");
 const categories_router_1 = require("./categories.router");
 const users_router_1 = require("./users.router");
 const products_router_1 = require("./products.router");
-const error_handler_1 = require("@middlewares/error.handler");
+const error_handler_1 = require("../../middlewares/error.handler");
 function routerApi(app) {
     const router = (0, express_1.Router)();
     app.use('/api/v1', router);
