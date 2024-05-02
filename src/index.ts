@@ -11,7 +11,7 @@ app.use(cors());
 
 // Routes
 app.get('/api', (req: Request, res: Response) => {
-  res.send('Hello, TypeScript Express!');
+  res.send('Hello, TypeScript Express! VERCEL');
 });
 
 // Router
