@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.get('/', (req: Request, res: Response) => {
+app.get('/api', (req: Request, res: Response) => {
   res.send('Hello, TypeScript Express!');
 });
 
