@@ -1,6 +1,6 @@
 import { Request, Response, Router, NextFunction } from 'express';
-import { Product } from '@models/product.interface';
-import { ProductsServices } from '@services/products.services';
+import { Product } from '../models/product.interface';
+import { ProductsServices } from '../services/products.services';
 
 const router = Router();
 const service = new ProductsServices();

@@ -2,7 +2,7 @@ import { Express, Router } from 'express';
 import { categoriesRouter } from './categories.router';
 import { usersRouter } from './users.router';
 import { productsRouter } from './products.router';
-import { logErrors } from '@middlewares/error.handler';
+import { logErrors } from '../middlewares/error.handler';
 
 export function routerApi(app: Express) {
   const router = Router();
