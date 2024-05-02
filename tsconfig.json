@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
-    "outDir": "./api",
+    "outDir": "./public",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
+    "baseUrl": "./api",
     "paths": {
       "@middlewares/*": ["middlewares/*"],
       "@models/*": ["models/*"],
@@ -16,6 +16,6 @@
       "@services/*": ["services/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["api/**/*.ts"],
   "exclude": ["node_modules"]
 }

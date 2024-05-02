@@ -13,7 +13,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Routes
 app.get('/api', (req, res) => {
-    res.send('Hello, TypeScript Express!');
+    res.send('Hello, TypeScript Express! VERCEL');
 });
 // Router
 (0, routes_1.routerApiV2)(app);
