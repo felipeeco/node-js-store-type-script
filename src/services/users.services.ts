@@ -1,0 +1,9 @@
+import { getConnection } from '../../postgres';
+
+export class UsersService {
+ async find() {
+   const client = await getConnection();
+   const answer = await client.query('SELECT * FROM tasks');
+   return answer.rows;
+ }
+}

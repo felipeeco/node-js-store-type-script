@@ -1,8 +1,11 @@
 import { Request, Response, Router } from 'express';
 import { faker } from '@faker-js/faker';
 import { User } from '../models/user.interface';
+import { UsersService } from 'src/services/users.services';
 
 const router = Router();
+const service = new UsersService();
+let users: User[] = [];
 
 function createRandomUser(): User {
   return {
@@ -17,14 +20,9 @@ function createRandomUser(): User {
   };
 }
 
-const users: User[] = [];
-while (users.length < 4) {
-  users.push(createRandomUser());
-}
-
-router.get('/', (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   const { limit, offset } = req.query;
-
+  users = await service.find();
   if (limit && offset) {
     res.json(users);
   } else {
