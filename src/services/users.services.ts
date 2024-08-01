@@ -1,4 +1,4 @@
-import { getConnection } from '../../postgres';
+import { getConnection } from '../libs/postgres';
 
 export class UsersService {
  async find() {
