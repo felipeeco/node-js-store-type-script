@@ -5,7 +5,7 @@ const postgres_pool_1 = require("../libs/postgres.pool");
 class UsersService {
     async find() {
         const client = await postgres_pool_1.pool;
-        const answer = await client.query('SELECT * FROM tasks');
+        const answer = await client.query('SELECT title FROM tasks');
         return answer.rows;
     }
 }
