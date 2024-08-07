@@ -1,4 +1,3 @@
-import { getConnection } from '../libs/postgres';
 import { pool } from '../libs/postgres.pool';
 
 export class UsersService {
