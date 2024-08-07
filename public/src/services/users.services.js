@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
-const postgres_pool_1 = require("../libs/postgres.pool");
+const sequelize_1 = require("../libs/sequelize");
 class UsersService {
     async find() {
-        const client = await postgres_pool_1.pool;
-        const answer = await client.query('SELECT title FROM tasks');
-        return answer.rows;
+        const [results] = await sequelize_1.sequelize.query('SELECT * FROM tasks');
+        return results;
     }
 }
 exports.UsersService = UsersService;

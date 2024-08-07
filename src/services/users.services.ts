@@ -1,9 +1,9 @@
 import { pool } from '../libs/postgres.pool';
+import { sequelize } from '../libs/sequelize';
 
 export class UsersService {
   async find(): Promise<any[]> {
-    const client = await pool;
-    const answer = await client.query('SELECT title FROM tasks');
-    return answer.rows;
+    const [results] = await sequelize.query('SELECT * FROM tasks');
+    return results;
   }
 }
