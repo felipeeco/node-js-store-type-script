@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from 'express';
-import { Product } from '../models/product.interface';
+import { Product } from '../interfaces/product.interface';
 import { ProductsServices } from '../services/products.services';
 
 const router = Router();

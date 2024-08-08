@@ -1,6 +1,6 @@
 import * as boom from '@hapi/boom';
 import { faker } from '@faker-js/faker';
-import { Product } from '../models/product.interface';
+import { Product } from '../interfaces/product.interface';
 import {
   CreateProductSchema,
   UpdateProductSchema
