@@ -1,8 +1,9 @@
 import { sequelize } from '../libs/sequelize';
+import { User } from '../db/models/user.model';
 
 export class UsersService {
-  async find(): Promise<any[]> {
-    const [results] = await sequelize.query('SELECT * FROM users');
+  async find(): Promise<User[]> {
+    const results = await sequelize.models.User.findAll();
     return results;
   }
 }
