@@ -13,4 +13,19 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+router.post(
+  '/create-user',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body = await req.body;
+      await service.create(body);
+      res.status(201).json({
+        message: 'user created'
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+);
+
 export { router as usersRouter };

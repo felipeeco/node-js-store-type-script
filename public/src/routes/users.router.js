@@ -15,3 +15,15 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+router.post('/create-user', async (req, res, next) => {
+    try {
+        const body = await req.body;
+        await service.create(body);
+        res.status(201).json({
+            message: 'user created'
+        });
+    }
+    catch (error) {
+        next(error);
+    }
+});
