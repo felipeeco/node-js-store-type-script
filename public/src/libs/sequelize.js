@@ -6,9 +6,9 @@ const config_1 = require("../../config/config");
 const models_1 = require("../db/models");
 const USER = encodeURIComponent(config_1.config.dbUser);
 const PASSWORD = encodeURIComponent(config_1.config.dbPassword);
-const URI = `postgres://${USER}:${PASSWORD}@${config_1.config.dbHost}:${config_1.config.dbPort}/${config_1.config.dbName}`;
+const URI = `mysql://${USER}:${PASSWORD}@${config_1.config.dbHost}:${config_1.config.dbPort}/${config_1.config.dbName}`;
 exports.sequelize = new sequelize_1.Sequelize(URI, {
-    dialect: 'postgres',
+    dialect: 'mysql',
     logging: false
 });
 (0, models_1.setupModels)(exports.sequelize);
