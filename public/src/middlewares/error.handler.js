@@ -7,7 +7,7 @@ function logErrors(error, req, res,
 next) {
     if (error instanceof sequelize_1.ValidationError) {
         res.status(409).json({
-            message: error.errors[0].message,
+            message: error.errors[0].message
         });
     }
     else {

@@ -8,12 +8,11 @@ export function logErrors(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) {
-
-  if(error instanceof ValidationError) {
+  if (error instanceof ValidationError) {
     res.status(409).json({
-      message: error.errors[0].message,
+      message: error.errors[0].message
     });
-  }else{
+  } else {
     res.status(error.output.statusCode).json({
       message: error.message
     });
